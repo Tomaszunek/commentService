@@ -1,10 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import configureStore from './store';
+import { getAllComments } from './actions/commentsActions';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import registerServiceWorker from './registerServiceWorker';
+import AppRouting from './Pages/AppRouting';
+
+const store = configureStore();
+store.dispatch(getAllComments());
+
+// Render the App
+ReactDOM.render(<AppRouting store={store}/>, document.getElementById(
+    'root'
+) as HTMLElement);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

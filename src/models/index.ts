@@ -1,3 +1,7 @@
 export interface IComment {
-    text: string;
+    title: string;
+}
+
+export interface ICommentState {
+    readonly comments: IComment[];
 }

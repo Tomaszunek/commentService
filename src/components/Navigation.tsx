@@ -68,8 +68,8 @@ const CircleMenu = styled.div`
 
 const LinkHref = styled(Link)<ILinkProps>`
     ${props => {
-        const left = (48 - 35*Math.cos(-0.5 * Math.PI - 2*(1/props.arrLength)*props.index*Math.PI)).toFixed(4) + "%";
-        const top = (51 + 35*Math.sin(-0.5 * Math.PI - 2*(1/props.arrLength)*props.index*Math.PI)).toFixed(4) + "%"
+        const left = (48 - 35*Math.cos(-0.5 * Math.PI - 2*(1/props.length)*props.index*Math.PI)).toFixed(4) + "%";
+        const top = (51 + 35*Math.sin(-0.5 * Math.PI - 2*(1/props.length)*props.index*Math.PI)).toFixed(4) + "%"
      return `
         text-decoration: none;
         color: black;
@@ -101,20 +101,20 @@ const LinkHref = styled(Link)<ILinkProps>`
 `
 
 interface ILink {
-    href: string,
-    icon: any,
+    href: string;
+    icon: any;
 }
 
 interface ILinkProps {
-    index: number,
-    arrLength: number,
+    index: number;
+    length: number;
 }
 
 const Navigation: React.FC = () => {
     const [visibleMenu, setVisible] = useState(false);
     const links: ILink[] = [
         {
-            href: '/home',
+            href: '/',
             icon: <AiOutlineHome/>
         },
         {
@@ -128,15 +128,14 @@ const Navigation: React.FC = () => {
     ]
 
     const showMenu = () => {
-        console.log("abc");
-        setVisible(!visibleMenu)
+        setVisible(!visibleMenu);
     }
     return (
         <Container>
             <Circle className={visibleMenu ? "open" : ""}>
                 {
                     links.map((link, index, arrLinks) => (
-                        <LinkHref to={link.href} index={index} arrLength={arrLinks.length} className="open"> 
+                        <LinkHref to={link.href} key={index} index={index} length={arrLinks.length} className="open"> 
                             {link.icon}                        
                         </LinkHref>)                        
                     )

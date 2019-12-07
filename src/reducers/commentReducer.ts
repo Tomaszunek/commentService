@@ -1,22 +1,28 @@
-import { handleActions } from 'redux-actions';
-import { RootState } from './state';
-import { IComment } from '../models';
-import { CommentActions } from '../actions';
+import { Reducer } from 'redux';
+import {
+  CommentActions,
+  CommentActionsTypes,
+} from '../actions/commentsActions';
+import { ICommentState } from '../models'
 
-const initialState: RootState.CommentState = [  
-];
 
-export const commentsReducer = handleActions<RootState.CommentState, IComment>(  
-  {
-    [CommentActions.Type.FETCH_COMMENTS]: (state, action) => {
-      if(action.payload) {
-        return {
-          ...state,
-          ...action.payload
-        }
-      }      
-      return state
-    },    
-  },
-  initialState
-);
+// Define the initial state
+const initialCommentState: ICommentState = {
+  comments: [],
+};
+
+export const commentReducer: Reducer<ICommentState, CommentActions> = (
+  state = initialCommentState,
+  action
+) => {
+  switch (action.type) {
+    case CommentActionsTypes.GET_ALL: {
+      return {
+        ...state,
+        comments: action.comments,
+      };
+    }
+    default:
+      return state;
+  }
+};

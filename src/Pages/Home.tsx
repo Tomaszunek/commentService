@@ -1,9 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { IAppState } from '../store';
 
-const Home: React.FC = () => {
+import { IComment } from '../models';
+
+interface IProps {
+  comments: IComment[];
+}
+
+const Home: React.FC<IProps> = (props) => {
+  const { comments } = props;
   return (
-    <div>Home</div>
+    <div>{comments.map(item => <p>{item.title}</p>)}</div>
   );
 }
 
-export default Home;
+const mapStateToProps = (store: IAppState) => {
+  return {
+    comments: store.commentState.comments,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
+

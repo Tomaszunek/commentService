@@ -1,25 +1,19 @@
-import { Store, createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { logger } from '../middleware';
-import { IRootState, rootReducer } from '../reducers';
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
+import {
+  commentReducer,
+} from '../reducers/commentReducer';
+import { ICommentState } from '../models'
 
-export function configureStore(initialState?: IRootState): Store<IRootState> {
-  let middleware = applyMiddleware(logger);
+export interface IAppState {
+  commentState: ICommentState;
+}
 
-  if (process.env.NODE_ENV !== 'production') {
-    middleware = composeWithDevTools(middleware);
-  }
+const rootReducer = combineReducers<IAppState>({
+  commentState: commentReducer,
+});
 
-  const store = createStore(rootReducer as any, initialState as any, middleware) as Store<
-    IRootState
-  >;
-
-  if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers');
-      store.replaceReducer(nextReducer);
-    });
-  }
-
+export default function configureStore(): Store<IAppState, any> {
+  const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
   return store;
 }
