@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { IAppState } from '../store';
 
 import { IComment } from '../models';
+import Comment from '../components/Comment';
 
 interface IProps {
   comments: IComment[];
@@ -11,7 +12,7 @@ interface IProps {
 const Home: React.FC<IProps> = (props) => {
   const { comments } = props;
   return (
-    <div>{comments.map(item => <p>{item.title}</p>)}</div>
+    <div>{comments.map(comment => <Comment comment={comment}/>)}</div>
   );
 }
 

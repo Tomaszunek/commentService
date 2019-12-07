@@ -1,5 +1,8 @@
 export interface IComment {
-    title: string;
+    id: number;
+    name: string;
+    email: string;
+    body: string;
 }
 
 export interface ICommentState {

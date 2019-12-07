@@ -27,7 +27,7 @@ export const getAllComments: ActionCreator<
 > = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.get('http://jsonplaceholder.typicode.com/photos?_start=0&_limit=20');
+      const response = await axios.get('http://jsonplaceholder.typicode.com/comments?_start=20&_limit=20');
       dispatch({
         comments: response.data,
         type: CommentActionsTypes.GET_ALL,
