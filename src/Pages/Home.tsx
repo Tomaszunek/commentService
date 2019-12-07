@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../store';
 import { IComment } from '../models';
-import Comment from '../components/Comment';
 import CommentContainer from '../components/CommentContainer';
 
 interface IProps {
