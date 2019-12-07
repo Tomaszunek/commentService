@@ -19,6 +19,9 @@
     "noEmit": true,
     "jsx": "react"
   },
+  "rules": {
+    "no-namespace": "off"
+  },
   "include": [
     "src"
   ]
