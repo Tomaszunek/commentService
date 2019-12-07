@@ -119,11 +119,15 @@ const InputForm: React.FC<IProps> = (props) => {
 
     const [isValid, setValid] = useState(false);
     const [changeStatus, setChangeStatus] = useState(false);
-    const [validMessage, setValidMessage] = useState(`   ( ${min ? 'min length ' + min + ',' : ''}  ${specType})`)
+    const isValidChange = () => changeStatus ? isValid ? "valid" : "error" : "";
+    const [validMessage, setValidMessage] = useState(`   ( ${min ? 'min length ' + min + ',' : ''}  ${specType}) ${isValidChange()}`)
     return (
         <InputContainer>
-            <Input type={type} placeholder="&nbsp;" onChange={(e) => checkInput(e.currentTarget.value, min, specType, setChangeStatus, setValid)}></Input>
-            <LabelText className={changeStatus ? isValid ? "valid" : "error" : ""}>{labelText + validMessage}</LabelText>
+            <Input type={type} placeholder="&nbsp;" onChange={(e) => {
+                checkInput(e.currentTarget.value, min, specType, setChangeStatus, setValid);
+                setValidMessage(`   ( ${min ? 'min length ' + min + ',' : ''}  ${specType}) ${isValidChange()}`)
+            }}></Input>
+            <LabelText className={isValidChange()}>{labelText + validMessage}</LabelText>
             <Border/>
         </InputContainer>
     );
