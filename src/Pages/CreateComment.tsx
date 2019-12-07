@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import InputForm from '../components/InputForm';
 import { Link } from 'react-router-dom';
@@ -37,11 +37,11 @@ const LinkHref = styled(Link)`
 
 const handleSubmit = (event: any) => {
   event.preventDefault();
-  event.stopPropagation()
   const inputs = event.target.getElementsByTagName("input");
   const comment:any = {};
   for (let a of inputs) {
     comment[a.getAttribute("name")] = a.value;
+    a.value = "";
   }
   console.log(comment);
 }
