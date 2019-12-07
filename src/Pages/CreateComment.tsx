@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import InputForm from '../components/InputForm';
 import { Link } from 'react-router-dom';
@@ -35,19 +35,30 @@ const LinkHref = styled(Link)`
   text-decoration: none;
 `;
 
+const handleSubmit = (event: any) => {
+  event.preventDefault();
+  event.stopPropagation()
+  const inputs = event.target.getElementsByTagName("input");
+  const comment:any = {};
+  for (let a of inputs) {
+    comment[a.getAttribute("name")] = a.value;
+  }
+  console.log(comment);
+}
+
 
 const CreateComment: React.FC = () => {
   return (
-    <Form className="comment-form">
-        <InputForm labelText="Name" type="text" spec={{min: 3, type: "char"}}/>
-        <InputForm labelText="Mail" type="email" spec={{type: "email"}}/>
-        <InputForm labelText="Content" type="text" spec={{min: 2, type: "charDigit"}}/> 
+    <Form className="comment-form" onSubmit={(e) => {handleSubmit(e)}}>
+        <InputForm labelText="Name" name="name" type="text" spec={{min: 3, type: "char"}}/>
+        <InputForm labelText="Mail" name="mail" type="email" spec={{type: "email"}}/>
+        <InputForm labelText="Content" name="content" type="text" spec={{min: 2, type: "charDigit"}}/> 
         <BackSubmitCont>
           <LinkHref to="/">
             <MdArrowBack/>
             <span>Back to Home</span>            
             </LinkHref>
-          <Button type="submit">
+          <Button>
             <span>Create Comment</span>
             <MdArrowForward/>
           </Button>

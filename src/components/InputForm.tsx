@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface IProps {
     labelText: string;
     type: string;
     spec: IInputSpec;
+    name: string;
 }
 
 interface IInputSpec {
@@ -96,7 +97,6 @@ const Border = styled.span`
 
 const checkInput = (text: string, minLenght: number | undefined, type: string, changeStatusEvent: Function, setValidState: Function) => {
     changeStatusEvent(true);
-    console.log(text, minLenght, type);
     let isValid = true;
     if(minLenght && minLenght > text.length) {
         isValid = false;
@@ -114,7 +114,7 @@ const checkInput = (text: string, minLenght: number | undefined, type: string, c
 }
 
 const InputForm: React.FC<IProps> = (props) => {
-    const { labelText, type, spec } = props;
+    const { labelText, type, spec, name } = props;
     const { min, type: specType } = spec;
 
     const [isValid, setValid] = useState(false);
@@ -123,7 +123,7 @@ const InputForm: React.FC<IProps> = (props) => {
     const [validMessage, setValidMessage] = useState(`   ( ${min ? 'min length ' + min + ',' : ''}  ${specType}) ${isValidChange()}`)
     return (
         <InputContainer>
-            <Input type={type} placeholder="&nbsp;" onChange={(e) => {
+            <Input type={type} name={name} placeholder="&nbsp;" onChange={(e) => {
                 checkInput(e.currentTarget.value, min, specType, setChangeStatus, setValid);
                 setValidMessage(`   ( ${min ? 'min length ' + min + ',' : ''}  ${specType}) ${isValidChange()}`)
             }}></Input>
