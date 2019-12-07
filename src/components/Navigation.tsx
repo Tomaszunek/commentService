@@ -66,11 +66,11 @@ const CircleMenu = styled.div`
     }
 `
 
-const LinkHref = styled(Link)<ILinkProps>`
+const LinkHref = styled(Link) <ILinkProps>`
     ${props => {
-        const left = (48 - 35*Math.cos(-0.5 * Math.PI - 2*(1/props.length)*props.index*Math.PI)).toFixed(4) + "%";
-        const top = (51 + 35*Math.sin(-0.5 * Math.PI - 2*(1/props.length)*props.index*Math.PI)).toFixed(4) + "%"
-     return `
+        const left = (48 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / props.length) * props.index * Math.PI)).toFixed(4) + "%";
+        const top = (51 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / props.length) * props.index * Math.PI)).toFixed(4) + "%"
+        return `
         text-decoration: none;
         color: black;
         display: block;
@@ -115,15 +115,15 @@ const Navigation: React.FC = () => {
     const links: ILink[] = [
         {
             href: '/',
-            icon: <AiOutlineHome/>
+            icon: <AiOutlineHome />
         },
         {
             href: '/favorite',
-            icon: <FiStar/>
+            icon: <FiStar />
         },
         {
             href: '/create',
-            icon: <FiEdit/>
+            icon: <FiEdit />
         }
     ]
 
@@ -135,14 +135,14 @@ const Navigation: React.FC = () => {
             <Circle className={visibleMenu ? "open" : ""}>
                 {
                     links.map((link, index, arrLinks) => (
-                        <LinkHref to={link.href} key={index} index={index} length={arrLinks.length} className="open"> 
-                            {link.icon}                        
-                        </LinkHref>)                        
+                        <LinkHref onClick={() => { showMenu() }} to={link.href} key={index} index={index} length={arrLinks.length} className="open">
+                            {link.icon}
+                        </LinkHref>)
                     )
                 }
             </Circle>
             <CircleMenu onClick={() => { showMenu() }}>
-                <GiHamburgerMenu/>
+                <GiHamburgerMenu />
             </CircleMenu>
         </Container>
     );

@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../store';
-
 import { IComment } from '../models';
 import Comment from '../components/Comment';
+import CommentContainer from '../components/CommentContainer';
 
 interface IProps {
   comments: IComment[];
 }
 
-const Home: React.FC<IProps> = (props) => {
+const Home: React.FC<IProps> = props => {
   const { comments } = props;
   return (
-    <div>{comments.map(comment => <Comment comment={comment}/>)}</div>
+    <CommentContainer comments={comments}/>
   );
 }
 

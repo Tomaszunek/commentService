@@ -5,6 +5,7 @@ import { getAllComments } from './actions/commentsActions';
 
 import registerServiceWorker from './registerServiceWorker';
 import AppRouting from './Pages/AppRouting';
+import './index.css';
 
 const store = configureStore();
 store.dispatch(getAllComments());
