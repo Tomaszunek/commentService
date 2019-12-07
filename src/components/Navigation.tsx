@@ -3,8 +3,9 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineHome } from 'react-icons/ai';
 import { FiEdit, FiStar } from 'react-icons/fi'
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Container = styled.div`
+const Container = styled.header`
     width: 250px;
     height: 250px;
     margin: 0 auto;
@@ -65,7 +66,7 @@ const CircleMenu = styled.div`
     }
 `
 
-const Link = styled('a')<ILinkProps>`
+const LinkHref = styled(Link)<ILinkProps>`
     ${props => {
         const left = (48 - 35*Math.cos(-0.5 * Math.PI - 2*(1/props.arrLength)*props.index*Math.PI)).toFixed(4) + "%";
         const top = (51 + 35*Math.sin(-0.5 * Math.PI - 2*(1/props.arrLength)*props.index*Math.PI)).toFixed(4) + "%"
@@ -135,9 +136,9 @@ const Navigation: React.FC = () => {
             <Circle className={visibleMenu ? "open" : ""}>
                 {
                     links.map((link, index, arrLinks) => (
-                        <Link href={link.href} index={index} arrLength={arrLinks.length} className="open"> 
+                        <LinkHref to={link.href} index={index} arrLength={arrLinks.length} className="open"> 
                             {link.icon}                        
-                        </Link>)                        
+                        </LinkHref>)                        
                     )
                 }
             </Circle>
