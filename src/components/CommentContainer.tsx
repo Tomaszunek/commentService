@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { IComment } from '../models';
 import Comment from './Comment';
 import { device } from '../constants/devices'
+import { ConnectedProps, connect } from 'react-redux';
+import { ADD_TO_FAVORITE } from '../constants/actions';
 
 interface IProps {
     comments: IComment[];
@@ -28,18 +30,36 @@ const Container = styled.div`
     display: grid;
     grid-gap: 20px 25px;
     background-color: #010208;   
-`
+`;
 
-const CommentContainer: React.FC<IProps> = props => {
-    const { comments } = props;
+const mapState = () => ({
+})
+
+const mapDispatch = {
+    addToFavorite: (id: number) => ({ type: ADD_TO_FAVORITE, payload: id })
+}
+
+const connector = connect(
+    mapState,
+    mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type Props = PropsFromRedux & {
+    comments: IComment[]
+}
+
+const CommentContainer: React.FC<Props> = props => {
+    const { comments, addToFavorite } = props;
     return (
         <Container>
             {
                 comments.map((comment, index) =>
-                    <Comment key={index} comment={comment} />)
+                    <Comment key={index} comment={comment} addToFavorite={addToFavorite} />)
             }
         </Container>
     );
 }
 
-export default CommentContainer;
+export default connector(CommentContainer)

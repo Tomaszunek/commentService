@@ -13,12 +13,12 @@ export function commentReducer(
   action: CommentActionTypes
 ): ICommentState {
   switch (action.type) {
-    case ADD_COMMENT: 
+    case ADD_COMMENT:
       return {
         ...state,
         comments: [...state.comments, action.payload]
-      }    
-    case GET_COMMENTS: 
+      }
+    case GET_COMMENTS:
       return {
         ...state,
         comments: action.payload
@@ -34,12 +34,10 @@ export function commentReducer(
 }
 
 const addToFavoriteById = (id: number, comments: IComment[]) => {
-  const comment: any = comments.filter(comment => comment.id === id);
+  const comment: any = comments.filter(comment => comment.id === id)[0];
   const otherComments = comments.filter(comment => comment.id !== id);
-  return [
-    ...otherComments,
-    {
-      ...comment,
-      favorite: !comment.favorite
-    }]
-  }
+  const { favorite } = comment;
+  comment.favorite =  !favorite;  
+  return [...otherComments, comment].sort((a,b) => a.id - b.id);
+  
+}

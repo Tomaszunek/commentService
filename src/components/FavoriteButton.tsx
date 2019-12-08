@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { FiStar } from 'react-icons/fi';
 
 interface IProps {
+    favoriteState: boolean | undefined;
+    id: number;
+    addToFavorite: Function;
 }
 
 const Icon = styled.span`
@@ -33,10 +36,11 @@ const Icon = styled.span`
     }
 `;
 
-const FavoriteButton: React.FC<IProps> = (props) => {
+const FavoriteButton: React.FC<IProps> = props => {
+    const { addToFavorite, id, favoriteState } = props;
     return (
-        <Icon>
-            <FiStar/>
+        <Icon onClick={(e) => {addToFavorite(id)}}>
+            <FiStar className ={favoriteState ? "is-active" : ""}/>
         </Icon>
     );
 }

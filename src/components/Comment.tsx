@@ -5,6 +5,7 @@ import FavoriteButton from './FavoriteButton';
 
 interface IProps {
   comment: IComment;
+  addToFavorite: Function;
 }
 
 const CommentDiv = styled.div`
@@ -38,9 +39,9 @@ const Body = styled.p`
   font-size: 18px;
 `;
 
-const Comment: React.FC<IProps> = (props) => {
-  const { comment } = props;
-  const { body, email, name } = comment;
+const Comment: React.FC<IProps> = props => {
+  const { comment, addToFavorite } = props;
+  const { body, email, name, favorite, id } = comment;
 
   const cutCommentBody = (body: string, cutLength:number) => body.length > cutLength ? `${body.substring(0, cutLength)}...` : body ;
   return (
@@ -48,7 +49,7 @@ const Comment: React.FC<IProps> = (props) => {
       <Email>{email}</Email>
       <Name>{name}</Name>
       <Body>{cutCommentBody(body, 20)}</Body>
-      <FavoriteButton/>
+      <FavoriteButton favoriteState={favorite} id={id} addToFavorite={addToFavorite}/>
     </CommentDiv>
   );
 }
