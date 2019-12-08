@@ -65,9 +65,7 @@ const connector = connect(
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-type Props = PropsFromRedux & {
-  backgroundColor: string
-}
+type Props = PropsFromRedux & {}
 
 
 const CreateComment: React.FC<Props> = (props) => {

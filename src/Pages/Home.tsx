@@ -1,18 +1,31 @@
 import React from 'react';
-import { IComment } from '../models';
 import CommentContainer from '../components/CommentContainer';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from '../store';
 
-interface IProps {
-  comments: IComment[];
+const mapState = (state: RootState) => ({
+  comments: state.commentReducer.comments
+})
+
+const mapDispatch = {
 }
 
-const Home: React.FC<IProps> = props => {
-  // const { comments } = props;
-  const comments:IComment[] = [];
+const connector = connect(
+  mapState,
+  mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type Props = PropsFromRedux & {}
+
+const Home: React.FC<Props> = props => {
+  const { comments } = props;
+  console.log(props);
   return (
     <CommentContainer comments={comments}/>
   );
 }
 
-export default Home;
+export default connector(Home);
 

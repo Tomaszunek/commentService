@@ -24,7 +24,6 @@ export function commentReducer(
         comments: abc
       };
     }
-    default:
-      return state
   }
+  return state;
 }
