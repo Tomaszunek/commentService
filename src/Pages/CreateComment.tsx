@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import InputForm from '../components/InputForm';
 import { Link } from 'react-router-dom';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
+import { connect, ConnectedProps } from 'react-redux';
+import { ICommentState, IComment } from '../models';
+import { ADD_COMMENT } from '../constants/actions';
 
 const Button = styled.button`
   background: gray;
@@ -35,7 +38,7 @@ const LinkHref = styled(Link)`
   text-decoration: none;
 `;
 
-const handleSubmit = (event: any) => {
+const handleSubmit = (event: any, addComment: Function) => {
   event.preventDefault();
   const inputs = event.target.getElementsByTagName("input");
   const comment:any = {};
@@ -43,16 +46,37 @@ const handleSubmit = (event: any) => {
     comment[a.getAttribute("name")] = a.value;
     a.value = "";
   }
+  addComment(comment);
   console.log(comment);
 }
 
 
-const CreateComment: React.FC = () => {
+const mapState = (state: ICommentState) => ({
+})
+
+const mapDispatch = {
+  addComment: (newComment: IComment) => ({ type: ADD_COMMENT, payload: newComment})
+}
+
+const connector = connect(
+  mapState,
+  mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type Props = PropsFromRedux & {
+  backgroundColor: string
+}
+
+
+const CreateComment: React.FC<Props> = (props) => {
+  const { addComment } = props;
   return (
-    <Form className="comment-form" onSubmit={(e) => {handleSubmit(e)}}>
+    <Form className="comment-form" onSubmit={(e) => {handleSubmit(e, addComment)}}>
         <InputForm labelText="Name" name="name" type="text" spec={{min: 3, type: "char"}}/>
         <InputForm labelText="Mail" name="mail" type="email" spec={{type: "email"}}/>
-        <InputForm labelText="Content" name="content" type="text" spec={{min: 2, type: "charDigit"}}/> 
+        <InputForm labelText="Content" name="body" type="text" spec={{min: 2, type: "charDigit"}}/> 
         <BackSubmitCont>
           <LinkHref to="/">
             <MdArrowBack/>
@@ -67,4 +91,4 @@ const CreateComment: React.FC = () => {
   );
 }
 
-export default CreateComment;
+export default connector(CreateComment)

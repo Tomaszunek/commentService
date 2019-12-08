@@ -1,17 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import configureStore from './store';
-import { getAllComments } from './actions/commentsActions';
 
 import registerServiceWorker from './registerServiceWorker';
 import AppRouting from './Pages/AppRouting';
 import './index.css';
 
-const store = configureStore();
-store.dispatch(getAllComments());
-
 // Render the App
-ReactDOM.render(<AppRouting store={store}/>, document.getElementById(
+ReactDOM.render(<AppRouting/>, document.getElementById(
     'root'
 ) as HTMLElement);
 

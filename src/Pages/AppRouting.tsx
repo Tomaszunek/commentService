@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { Store } from 'redux';
-import { IAppState } from '../store';
+import { createStore } from 'redux';
 
 import Home from './Home';
 import Favorite from './Favorite';
 import CreateComment from './CreateComment';
 import Navigation from '../components/Navigation';
+import { rootReducer } from '../store';
 
+interface IProps {}
 
-interface IProps {
-  store: Store<IAppState>;
-}
+const store = createStore(rootReducer);
+
 
 class AppRouting extends Component<IProps> {
   render() {
-    const {store} = this.props;
     return (
       <Provider store={store}>
         <Router>

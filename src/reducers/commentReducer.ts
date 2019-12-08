@@ -1,28 +1,30 @@
-import { Reducer } from 'redux';
-import {
-  CommentActions,
-  CommentActionsTypes,
-} from '../actions/commentsActions';
+import { CommentActionTypes } from '../actions/commentsActions'
 import { ICommentState } from '../models'
+import { ADD_COMMENT } from '../constants/actions'
 
+const initialState: ICommentState = {
+  comments: []
+}
 
-// Define the initial state
-const initialCommentState: ICommentState = {
-  comments: [],
-};
+let id = 0;
 
-export const commentReducer: Reducer<ICommentState, CommentActions> = (
-  state = initialCommentState,
-  action
-) => {
+export function commentReducer(
+  state = initialState,
+  action: CommentActionTypes
+): ICommentState {
   switch (action.type) {
-    case CommentActionsTypes.GET_ALL: {
+    case ADD_COMMENT: {
+      const abc = [...state.comments, {
+        ...action.payload,
+        id
+      }]
+      console.log(state, action, abc)
       return {
         ...state,
-        comments: action.comments,
+        comments: abc
       };
     }
     default:
-      return state;
+      return state
   }
-};
+}

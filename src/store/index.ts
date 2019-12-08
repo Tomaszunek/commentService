@@ -1,19 +1,8 @@
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
-import thunk from 'redux-thunk';
-import {
-  commentReducer,
-} from '../reducers/commentReducer';
-import { ICommentState } from '../models'
+import { combineReducers } from 'redux'
+import { commentReducer } from '../reducers/commentReducer'
 
-export interface IAppState {
-  commentState: ICommentState;
-}
+export const rootReducer = combineReducers({
+  comment: commentReducer,
+})
 
-const rootReducer = combineReducers<IAppState>({
-  commentState: commentReducer,
-});
-
-export default function configureStore(): Store<IAppState, any> {
-  const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
-  return store;
-}
+export type RootState = ReturnType<typeof rootReducer>

@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { IAppState } from '../store';
 import { IComment } from '../models';
 import CommentContainer from '../components/CommentContainer';
 
@@ -9,17 +7,12 @@ interface IProps {
 }
 
 const Home: React.FC<IProps> = props => {
-  const { comments } = props;
+  // const { comments } = props;
+  const comments:IComment[] = [];
   return (
     <CommentContainer comments={comments}/>
   );
 }
 
-const mapStateToProps = (store: IAppState) => {
-  return {
-    comments: store.commentState.comments,
-  };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;
 
