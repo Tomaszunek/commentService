@@ -73,7 +73,7 @@ const CreateComment: React.FC<Props> = (props) => {
   return (
     <Form className="comment-form" onSubmit={(e) => {handleSubmit(e, addComment)}}>
         <InputForm labelText="Name" name="name" type="text" spec={{min: 3, type: "char"}}/>
-        <InputForm labelText="Mail" name="mail" type="email" spec={{type: "email"}}/>
+        <InputForm labelText="Mail" name="email" type="email" spec={{type: "email"}}/>
         <InputForm labelText="Content" name="body" type="text" spec={{min: 2, type: "charDigit"}}/> 
         <BackSubmitCont>
           <LinkHref to="/">
