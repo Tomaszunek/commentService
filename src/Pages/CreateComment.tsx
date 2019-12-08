@@ -4,7 +4,7 @@ import InputForm from '../components/InputForm';
 import { Link } from 'react-router-dom';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 import { connect, ConnectedProps } from 'react-redux';
-import { ICommentState, IComment } from '../models';
+import { IComment } from '../models';
 import { ADD_COMMENT, UPDATE_ID_COMMENT } from '../constants/actions';
 import { RootState } from '../store';
 

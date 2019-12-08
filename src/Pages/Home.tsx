@@ -21,7 +21,6 @@ type Props = PropsFromRedux & {}
 
 const Home: React.FC<Props> = props => {
   const { comments } = props;
-  console.log(comments)
   return (
     <CommentContainer comments={comments}/>
   );
