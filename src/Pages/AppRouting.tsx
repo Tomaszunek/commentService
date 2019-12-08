@@ -8,6 +8,7 @@ import Favorite from './Favorite';
 import CreateComment from './CreateComment';
 import Navigation from '../components/Navigation';
 import { rootReducer } from '../store';
+import CommentFactory from '../components/CommentFactory';
 
 interface IProps {}
 
@@ -18,15 +19,14 @@ class AppRouting extends Component<IProps> {
   render() {
     return (
       <Provider store={store}>
+        <CommentFactory/>
         <Router>
-          <div>
-            <Navigation/>
-            <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route path='/favorite' component={Favorite}/>
-              <Route path='/create' component={CreateComment}/>
-            </Switch>
-          </div>
+          <Navigation/>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/favorite' component={Favorite}/>
+            <Route path='/create' component={CreateComment}/>
+          </Switch>
         </Router>
       </Provider>
     );
