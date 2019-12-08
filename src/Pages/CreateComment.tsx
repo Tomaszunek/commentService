@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 import { connect, ConnectedProps } from 'react-redux';
 import { ICommentState, IComment } from '../models';
-import { ADD_COMMENT } from '../constants/actions';
+import { ADD_COMMENT, UPDATE_ID_COMMENT } from '../constants/actions';
+import { RootState } from '../store';
 
 const Button = styled.button`
   background: gray;
@@ -38,24 +39,28 @@ const LinkHref = styled(Link)`
   text-decoration: none;
 `;
 
-const handleSubmit = (event: any, addComment: Function) => {
+const handleSubmit = (event: any, lastIndex: number,  addComment: Function, updateIdComment: Function) => {
   event.preventDefault();
   const inputs = event.target.getElementsByTagName("input");
-  const comment:any = {};
+  const comment:any = {
+    id: lastIndex + 1
+  };
   for (let a of inputs) {
     comment[a.getAttribute("name")] = a.value;
     a.value = "";
   }
   addComment(comment);
-  console.log(comment);
+  updateIdComment(lastIndex);
 }
 
 
-const mapState = (state: ICommentState) => ({
+const mapState = (state: RootState) => ({
+  id: state.commentReducer.id
 })
 
 const mapDispatch = {
-  addComment: (newComment: IComment) => ({ type: ADD_COMMENT, payload: newComment})
+  addComment: (newComment: IComment) => ({ type: ADD_COMMENT, payload: newComment}),
+  updateIdComment: (id: number) => ({ type: UPDATE_ID_COMMENT, payload: id })
 }
 
 const connector = connect(
@@ -69,9 +74,9 @@ type Props = PropsFromRedux & {}
 
 
 const CreateComment: React.FC<Props> = (props) => {
-  const { addComment } = props;
+  const { id, addComment,updateIdComment } = props;
   return (
-    <Form className="comment-form" onSubmit={(e) => {handleSubmit(e, addComment)}}>
+    <Form className="comment-form" onSubmit={(e) => {handleSubmit(e, id, addComment, updateIdComment)}}>
         <InputForm labelText="Name" name="name" type="text" spec={{min: 3, type: "char"}}/>
         <InputForm labelText="Mail" name="email" type="email" spec={{type: "email"}}/>
         <InputForm labelText="Content" name="body" type="text" spec={{min: 2, type: "charDigit"}}/> 

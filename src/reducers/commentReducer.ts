@@ -1,12 +1,11 @@
 import { CommentActionTypes } from '../actions/commentsActions'
 import { ICommentState, IComment } from '../models'
-import { ADD_COMMENT, GET_COMMENTS, ADD_TO_FAVORITE } from '../constants/actions'
+import { ADD_COMMENT, GET_COMMENTS, ADD_TO_FAVORITE, UPDATE_ID_COMMENT } from '../constants/actions'
 
 const initialState: ICommentState = {
-  comments: []
+  comments: [],
+  id: 0
 }
-
-let id = 0
 
 export function commentReducer(
   state = initialState,
@@ -27,6 +26,11 @@ export function commentReducer(
       return {
         ...state,
         comments: addToFavoriteById(action.payload, state.comments)
+      }
+    case UPDATE_ID_COMMENT: 
+      return {
+        ...state,
+        id: action.payload
       }
     default:
       return state

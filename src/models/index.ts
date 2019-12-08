@@ -8,4 +8,5 @@ export interface IComment {
 
 export interface ICommentState {
     readonly comments: IComment[];
+    readonly id: number
 }

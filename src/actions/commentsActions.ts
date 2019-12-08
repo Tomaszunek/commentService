@@ -1,4 +1,4 @@
-import { ADD_COMMENT, GET_COMMENTS, ADD_TO_FAVORITE } from "../constants/actions";
+import { ADD_COMMENT, GET_COMMENTS, ADD_TO_FAVORITE, UPDATE_ID_COMMENT } from "../constants/actions";
 import { IComment } from "../models";
 
 interface AddCommentAction {
@@ -13,6 +13,11 @@ interface GetCommentsAction {
 
 interface AddToFavoriteAction {
   type: typeof ADD_TO_FAVORITE,
+  payload: number
+}
+
+interface UpdateIdCommentAction {
+  type: typeof UPDATE_ID_COMMENT,
   payload: number
 }
 
@@ -37,4 +42,11 @@ export function addToFavorite(id: number): AddToFavoriteAction {
   }
 }
 
-export type CommentActionTypes = AddCommentAction | GetCommentsAction | AddToFavoriteAction;
+export function updateIdComment(id: number): UpdateIdCommentAction {
+  return {
+    type: UPDATE_ID_COMMENT,
+    payload: id
+  }
+}
+
+export type CommentActionTypes = AddCommentAction | GetCommentsAction | AddToFavoriteAction | UpdateIdCommentAction;
